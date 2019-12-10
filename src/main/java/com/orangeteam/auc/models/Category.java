@@ -1,43 +1,48 @@
 package com.orangeteam.auc.models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "CATEGORY")
-public class Category implements Serializable {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     private Long id;
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     private Category parent;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
-    private Set<Category> subsiddiary;
+    private Set<Category> subsidiary;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "ATTRIBUTE_CATEGORY",
+            joinColumns = @JoinColumn(name = "CATEGORY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ATTRIBUTE_ID"))
+    private Set<Attribute> attributes;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "CATEGORY_PRODUCT",
-        joinColumns = @JoinColumn(name = "CATEGORY_ID"),
-        inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+            joinColumns = @JoinColumn(name = "CATEGORY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
     private Set<Product> products;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ATTRLIST_ID", nullable = false)
-    private AttrList attrList;
-
-    public Category(){super();}
-
-    public Category(String name, Category parent, AttrList attrList) {
+    public Category(String name, Category parent, Set<Attribute> attributes) {
         this.name = name;
         this.parent = parent;
-        this.attrList = attrList;
+        this.attributes = attributes;
+    }
+
+    public Category() {
+        super();
     }
 
     public Long getId() {
@@ -64,12 +69,20 @@ public class Category implements Serializable {
         this.parent = parent;
     }
 
-    public Set<Category> getSubsiddiary() {
-        return subsiddiary;
+    public Set<Category> getSubsidiary() {
+        return subsidiary;
     }
 
-    public void setSubsiddiary(Set<Category> subsiddiary) {
-        this.subsiddiary = subsiddiary;
+    public void setSubsidiary(Set<Category> subsidiary) {
+        this.subsidiary = subsidiary;
+    }
+
+    public Set<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Set<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     public Set<Product> getProducts() {
@@ -78,13 +91,5 @@ public class Category implements Serializable {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
-    }
-
-    public AttrList getAttrList() {
-        return attrList;
-    }
-
-    public void setAttrList(AttrList attrList) {
-        this.attrList = attrList;
     }
 }

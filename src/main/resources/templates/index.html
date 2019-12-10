@@ -1,12 +1,205 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-  <title>Getting Started: Serving Web Content</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Ебучий бутстрап</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<!--/*@thymesVar id="name" type="templates"*/-->
-<p th:text="'Привет, ' + ${name} + ', пойдем пить пиво'" />
+  <nav class="navbar fixed-top navbar-expend-lg navbar-light white scrolling-navbar">
+    <div class="container">
+        <a href="#" class= "navbar-brand waves-effect">
+          <strong class="orange-text ">ORANGE TEAM</strong>
+        </a>
+        <li class="nav-item active">
+          <a href="#" class="nav-link waves-effect">хуйня1</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link waves-effect">хуйня2</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link waves-effect">хуйня 3</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link waves-effect">хуйня 4</a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link waves-effect">
+            <span class="badge orange mr-1">123</span>
+            <i class="fa fa-shopping-cart"></i>
+            <span class="clearfix d-none d-sm-inline-block">ебучая корзина</span>
+          </a>
+        </li>
+        <!-- <button class="navbar-toggler" type="button"
+        data-toggle="collapse" data-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <!-- <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav mr-auto">
+            
+          </ul>
+          <ul class="navbar-nav nav-flex-icons">
+            
+          </ul>
+        </div> -->
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <nav class="navbar navbar-expand-jg navbar-dark mdb-color lighten-3 mt-5 mb-3">
+        <span class="navbar-brand">Категории:
+          <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#nextNav"
+            aria-controls="nextNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="class collapse navbar-collapse" id="nextNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a href="#" class="nav-link">Категория 1</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Категория 2</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Категория 3</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Категория 4</a>
+            </li>
+          </ul>
+
+          <form class="form-inline">
+            <div class="md-form my-0">
+              <input type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
+            </div>
+          </form>
+        </div>
+        </span>
+      </nav>
+      <section class="text-center mb-4">
+        <div class="row wow fadeIn">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="view overlay">
+
+                <a href="">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+              <div class="card-body text-center">
+                <a href="" class="grey-text">
+                  <h5>
+                    <strong>
+                      <a href="" class="dark-grey-text">Baby yoda</a>
+                    </strong>
+                  </h5>
+                  <h4 class="font-weight-bold orange-text">
+                    <strong>666$</strong>
+                  </h4>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="view overlay">
+
+                <a href="">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+              <div class="card-body text-center">
+                <a href="" class="grey-text">
+                  <h5>
+                    <strong>
+                      <a href="" class="dark-grey-text">Baby yoda</a>
+                    </strong>
+                  </h5>
+                  <h4 class="font-weight-bold orange-text">
+                    <strong>69$</strong>
+                  </h4>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="view overlay">
+
+                <a href="">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+              <div class="card-body text-center">
+                <a href="" class="grey-text">
+                  <h5>
+                    <strong>
+                      <a href="" class="dark-grey-text">Baby yoda</a>
+                    </strong>
+                  </h5>
+                  <h4 class="font-weight-bold orange-text">
+                    <strong>1488$</strong>
+                  </h4>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="view overlay">
+
+                <a href="">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+              <div class="card-body text-center">
+                <a href="" class="grey-text">
+                  <h5>
+                    <strong>
+                      <a href="" class="dark-grey-text">Baby yoda</a>
+                    </strong>
+                  </h5>
+                  <h4 class="font-weight-bold orange-text">
+                    <strong>322$</strong>
+                  </h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript"></script>
 
 </body>
 </html>

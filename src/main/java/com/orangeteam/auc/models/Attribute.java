@@ -1,43 +1,49 @@
 package com.orangeteam.auc.models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "ATTRIBUTE")
-public class Attribute implements Serializable {
+public class Attribute {
+    // Идентификатор атрибута
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     private Long id;
+    // Название атрибута
     @Column(name = "NAME", nullable = false)
-    private String Name;
-    @Column(name = "LOCALNAME", nullable = false)
-    private String LocalName;
+    private String name;
+    // Тип (дискретный/непрерывный
+    @Column(name = "TYPE", nullable = false)
+    private int type;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "VALUE_ID")
-    private Set<Value> values;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "POOL_ID")
+    private Set<Pool> pools;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "ATTRLIST_ATTRIBUTE",
-            joinColumns = @JoinColumn(name = "ATTRIBUTE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ATTRLIST_ID"))
-    private Set<AttrList> lists;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "RESTRICTIONS_ID")
+    private Restrictions restrictions;
 
-    public Attribute(){super();}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "ATTRIBUTE_CATEGORY",
+        joinColumns = @JoinColumn(name = "ATTRIBUTE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
+    private Set<Category> categories;
 
-    @Override
-    public String toString() {
-        return id + ": " + getName() + "; " + getLocalName();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ATTRIBUTE_VALUE_ID")
+    private Set<Product_Attribute_Value> product_attribute_values;
+
+    public Attribute(String name, int type) {
+        this.name = name;
+        this.type = type;
     }
 
-    public Attribute(String name, String localName) {
-        Name = name;
-        LocalName = localName;
+    public Attribute() {
+        super();
     }
-
 
     public Long getId() {
         return id;
@@ -48,34 +54,50 @@ public class Attribute implements Serializable {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public String getLocalName() {
-        return LocalName;
+    public int getType() {
+        return type;
     }
 
-    public void setLocalName(String localName) {
-        LocalName = localName;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public Set<Value> getValues() {
-        return values;
+    public Set<Pool> getPools() {
+        return pools;
     }
 
-    public void setValues(Set<Value> values) {
-        this.values = values;
+    public void setPools(Set<Pool> pools) {
+        this.pools = pools;
     }
 
-    public Set<AttrList> getLists() {
-        return lists;
+    public Restrictions getRestrictions() {
+        return restrictions;
     }
 
-    public void setLists(Set<AttrList> lists) {
-        this.lists = lists;
+    public void setRestrictions(Restrictions restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Product_Attribute_Value> getProduct_attribute_values() {
+        return product_attribute_values;
+    }
+
+    public void setProduct_attribute_values(Set<Product_Attribute_Value> product_attribute_values) {
+        this.product_attribute_values = product_attribute_values;
     }
 }

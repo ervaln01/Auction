@@ -1,28 +1,39 @@
 package com.orangeteam.auc.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER")
 public class User {
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", nullable = false)
     private Long id;
-
-    @Column(name = "LOGIN")
+    @Column(name = "LOGIN", nullable = false)
     private String login;
-
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
 
-    public User(String login, String password) {
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "NOTIFICATIONS_ID")
+    private Set<Notifications> notifications;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LISTS_ID")
+    private Set<Lists> lists;
+
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
+        this.email = email;
     }
 
-    public User(){super();}
-
+    public User() {
+        super();
+    }
 
     public Long getId() {
         return id;
@@ -48,8 +59,27 @@ public class User {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return id + ": " + login + " - " + password;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Notifications> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notifications> notifications) {
+        this.notifications = notifications;
+    }
+
+    public Set<Lists> getLists() {
+        return lists;
+    }
+
+    public void setLists(Set<Lists> lists) {
+        this.lists = lists;
     }
 }

@@ -1,62 +1,69 @@
 package com.orangeteam.auc.models;
 
-import org.hibernate.mapping.FetchProfile;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "PRODUCT")
-public class Product implements Serializable {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     private Long id;
     @Column(name = "NAME", nullable = false)
     private String name;
-    @Column(name = "STARTPRICE", nullable = false)
+    @Column(name = "STAERTPRICE", nullable = false)
     private double startPrice;
     @Column(name = "STEP", nullable = false)
     private double step;
     @Column(name = "CURRPRICE", nullable = false)
-    private double currprice;
-    @Column(name = "DESCRIPTION", nullable = true)
+    private double currPrice;
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
-    @Column(name = "STATE", nullable = false)
+    @Column(name = "STATE", nullable = true)
     private int state;
+    @Column(name = "DATEBEG", nullable = true)
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATEBEG", nullable = false)
     private Date dateBeg;
+    @Column(name = "DATEEND", nullable = true)
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATEEND", nullable = false)
     private Date dateEnd;
+    @Column(name = "IMAGES", nullable = false)
+    private String images;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "CATEGORY_PRODUCT",
             joinColumns = @JoinColumn(name = "PRODUCT_ID"),
             inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
     private Set<Category> categories;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "VALUE_ID")
-    private Set<Value> values;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ATTRIBUTE_VALUE_ID")
+    private Set<Product_Attribute_Value> product_attribute_values;
 
-    public Product(){super();}
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LISTS_ID")
+    private Set<Lists> lists;
 
-    public Product(String name, double startPrice, double step, double currprice, String description, int state, Date dateBeg, Date dateEnd, Set<Category> categories) {
+    public Product(String name, double startPrice, double step, double currPrice, String description, int state, Date dateBeg, Date dateEnd, String images, Set<Category> categories, Set<Product_Attribute_Value> product_attribute_values) {
         this.name = name;
         this.startPrice = startPrice;
         this.step = step;
-        this.currprice = currprice;
+        this.currPrice = currPrice;
         this.description = description;
         this.state = state;
         this.dateBeg = dateBeg;
         this.dateEnd = dateEnd;
+        this.images = images;
         this.categories = categories;
+        this.product_attribute_values = product_attribute_values;
     }
 
+    public Product() {
+        super();
+    }
 
     public Long getId() {
         return id;
@@ -90,12 +97,12 @@ public class Product implements Serializable {
         this.step = step;
     }
 
-    public double getCurrprice() {
-        return currprice;
+    public double getCurrPrice() {
+        return currPrice;
     }
 
-    public void setCurrprice(double currprice) {
-        this.currprice = currprice;
+    public void setCurrPrice(double currPrice) {
+        this.currPrice = currPrice;
     }
 
     public String getDescription() {
@@ -130,6 +137,14 @@ public class Product implements Serializable {
         this.dateEnd = dateEnd;
     }
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -138,11 +153,19 @@ public class Product implements Serializable {
         this.categories = categories;
     }
 
-    public Set<Value> getValues() {
-        return values;
+    public Set<Product_Attribute_Value> getProduct_attribute_values() {
+        return product_attribute_values;
     }
 
-    public void setValues(Set<Value> values) {
-        this.values = values;
+    public void setProduct_attribute_values(Set<Product_Attribute_Value> product_attribute_values) {
+        this.product_attribute_values = product_attribute_values;
+    }
+
+    public Set<Lists> getLists() {
+        return lists;
+    }
+
+    public void setLists(Set<Lists> lists) {
+        this.lists = lists;
     }
 }
